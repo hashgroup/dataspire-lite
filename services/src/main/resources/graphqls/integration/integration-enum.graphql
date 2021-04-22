@@ -1,0 +1,7 @@
+enum ProcessStatusEnum
+{
+    SUCCESS,
+    READY,
+    PROCESSING,
+    ERROR,
+}

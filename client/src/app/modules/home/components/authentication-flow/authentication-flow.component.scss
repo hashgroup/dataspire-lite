@@ -1,0 +1,10 @@
+img {
+  width: 200px;
+}
+
+.custom-step-container {
+  min-height: calc(100vh - 64px - 72px - 4rem - 24px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

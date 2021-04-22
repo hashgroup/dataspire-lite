@@ -1,0 +1,15 @@
+
+input StatisticFilter
+{
+    processId               : String!
+}
+
+input IdentifiedGuestSegmentationFilter
+{
+    processId               : String!
+}
+
+input ClvClassFilter
+{
+    processId               : String!
+}

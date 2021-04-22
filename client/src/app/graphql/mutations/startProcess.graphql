@@ -1,0 +1,7 @@
+mutation StartProcess($input: ProcessInput) {
+  response: startProcess(input: $input) {
+    id
+    status
+    message
+  }
+}

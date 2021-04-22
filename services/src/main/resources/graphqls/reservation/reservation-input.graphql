@@ -1,0 +1,8 @@
+input ReservationFilter
+{
+    hotelIdList             : [String]!
+    refreshToken            : String!
+    pageNumber              : Int
+    pageSize                : Int
+
+}

@@ -1,0 +1,6 @@
+extend type Query
+{
+    getStatistic(filter: StatisticFilter)                                                   : Statistic
+    getIdentifiedGuestSegmentation(filter: IdentifiedGuestSegmentationFilter)               : [IdentifiedGuestSegmentation]
+    getClvClassList(filter: ClvClassFilter)                                                 : [ClvClass]
+}

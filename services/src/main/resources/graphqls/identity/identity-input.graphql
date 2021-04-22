@@ -1,0 +1,6 @@
+input TokenRequest
+{
+    code                : String
+    redirectUrl         : String
+    refreshToken        : String
+}

@@ -1,0 +1,11 @@
+extend type Query
+{
+    getProcessState(filter: ProcessStatusFilter)                                            : Process
+    getCustomerLifetimeValueList(filter: CustomerLifetimeValueFilter)                       : [CustomerLifetimeValue]
+    getTotalRecordCount(filter: ProcessDetailsFilter)                                       : Int
+}
+
+extend type Mutation
+{
+    startProcess(input: ProcessInput)                                                       : Process
+}

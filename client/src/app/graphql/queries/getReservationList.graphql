@@ -1,0 +1,5 @@
+query GetReservationList($filter: ReservationFilter) {
+  response: getReservationList(filter: $filter) {
+    count
+  }
+}

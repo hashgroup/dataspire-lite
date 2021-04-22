@@ -1,0 +1,3 @@
+query GetTotalRecordCount($filter: ProcessDetailsFilter) {
+  response: getTotalRecordCount(filter: $filter)
+}

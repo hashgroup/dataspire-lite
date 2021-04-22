@@ -1,0 +1,20 @@
+type CustomerLifetimeValue
+{
+    firstName           : String
+    lastName            : String
+    email               : String
+    guestId             : String
+    ltvClass            : Float
+    low                 : Float
+    mid                 : Float
+    high                : Float
+    type                : String
+}
+
+type Process
+{
+    id                  : String
+    status              : ProcessStatusEnum
+    message             : String
+    recordCount         : Int
+}

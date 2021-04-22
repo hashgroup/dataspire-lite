@@ -1,0 +1,60 @@
+type ReservationList
+{
+    data            : [Reservation]
+    count           : Int
+}
+
+type Reservation
+{
+    id                                  : String
+    bookingId                           : String
+    status                              : String
+    arrival                             : String
+    departure                           : String
+    created                             : String
+    adults                              : String
+    chilrenAgeList                      : [Int]
+    channelCode                         : String
+    reservationTimeSliceList            : [ReservationTimeSlice]
+    room                                : ReservationRoom
+    guest                               : ReservationGuest
+    totalGrossAmount                    : Monetary
+}
+
+type ReservationTimeSlice
+{
+    from                                : String
+    to                                  : String
+    roomPrice                           : Monetary
+}
+
+type ReservationRoom
+{
+    id                                  : String
+    roomNumber                          : String
+    description                         : String
+    roomGroupId                         : String
+}
+
+type ReservationGuest
+{
+    firstName                           : String
+    lastName                            : String
+    email                               : String
+    address                             : Address
+}
+
+type Address
+{
+    countryCode                         : String
+}
+
+type Monetary
+{
+    grossAmount                         : BigDecimal
+    netAmount                           : BigDecimal
+    vatType                             : String
+    vatPercent                          : Float
+    currency                            : String
+}
+

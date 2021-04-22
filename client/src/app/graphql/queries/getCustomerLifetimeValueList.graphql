@@ -1,0 +1,10 @@
+
+query GetCustomerLifetimeValueList($filter: CustomerLifetimeValueFilter) {
+  response: getCustomerLifetimeValueList(filter: $filter) {
+    email
+    low
+    mid
+    high
+    type
+  }
+}

@@ -1,0 +1,26 @@
+
+type Statistic
+{
+    totalIdentifiedGuest    : Int
+    totalPotentialVipGuest  : Int
+    highValueGuest          : Int
+}
+
+type IdentifiedGuestSegmentation
+{
+    segment             : String
+    value               : Float
+}
+
+type ClvType
+{
+    name                : String
+    value               : Int
+}
+
+type ClvClass
+{
+    name                : String
+    typeList            : [ClvType]
+}
+

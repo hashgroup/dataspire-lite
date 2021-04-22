@@ -1,0 +1,4 @@
+extend type Query
+{
+    getReservationList(filter: ReservationFilter)                                           : ReservationList
+}

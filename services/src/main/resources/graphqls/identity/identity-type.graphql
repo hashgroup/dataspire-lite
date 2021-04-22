@@ -1,0 +1,14 @@
+type TokenResponse
+{
+    idToken                 : String
+    accessToken             : String
+    expiresIn               : Long
+    tokenType               : String
+    refreshToken            : String
+}
+
+type ApaleoClient
+{
+    allowScopeList          : [String]
+    clientId                : String
+}

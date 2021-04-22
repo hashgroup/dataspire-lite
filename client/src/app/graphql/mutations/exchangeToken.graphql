@@ -1,0 +1,9 @@
+mutation ExchangeToken($input: TokenRequest) {
+  response: exchangeToken(input: $input) {
+    idToken
+    accessToken
+    expiresIn
+    tokenType
+    refreshToken
+  }
+}

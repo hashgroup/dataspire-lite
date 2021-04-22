@@ -1,0 +1,9 @@
+query GetClvClassList($filter: ClvClassFilter) {
+  response: getClvClassList(filter: $filter) {
+    name
+    typeList {
+      name
+      value
+    }
+  }
+}

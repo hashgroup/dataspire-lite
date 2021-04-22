@@ -1,0 +1,86 @@
+@import "sass/colors-variables";
+@import 'node_modules/foundation-sites/scss/util/util';
+
+// 1. Global
+// ---------
+$global-font-size: 100%;
+$global-lineheight: 1.5;
+$global-width: rem-calc(1366);
+
+$foundation-palette: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  warning: $warning,
+  alert: $alert,
+);
+$light-gray: $light-gray;
+$medium-gray: $medium-gray;
+$dark-gray: $dark-gray;
+$black: $black;
+$white: $white;
+
+$body-background: #FFFFFF;
+$body-font-color: $black;
+$body-font-family: 'Poppins', "Fira Sans", Arial, "Helvetica Neue", sans-serif;
+$global-font-size: 14px;
+$global-radius: 4;
+
+@include add-foundation-colors;
+
+// 2. Breakpoints
+// --------------
+$breakpoints: (
+  small: 0,
+  medium: 641px,
+  large: 1025px,
+  xlarge: 1366px,
+  xxlarge: 1920px,
+  xxxlarge: 2560px
+);
+$breakpoints-hidpi: (
+  hidpi-1: 1,
+  hidpi-1-5: 1.5,
+  hidpi-2: 2,
+  retina: 2,
+  hidpi-3: 3
+);
+$print-breakpoint: large;
+$breakpoint-classes: (small medium large xlarge xxlarge);
+
+$grid-margin-gutters: (
+  small: 10px,
+  medium: 15px,
+);
+
+// 3. button
+// --------------
+$button-margin: 0 0 0 0;
+$paragraph-margin-bottom: 0;
+$button-palette: (
+  primary: #5B6670,
+  secondary: $secondary,
+  success: $success,
+  warning: $warning,
+  alert: $alert,
+  accent: $accent,
+);
+$button-sizes: (
+  tiny: 0.6rem,
+  small: 0.75rem,
+  default: 14px,
+  large: 1.25rem,
+) !default;
+// 4. form
+// --------------
+$fieldset-padding: 8px;
+$fieldset-margin: 0;
+$input-placeholder-color: $light-gray;
+$input-border: 1px solid #DADCDC;
+$input-radius: 4px;
+$input-font-weight: 600;
+$input-shadow: none;
+
+// 4. box-shadow
+// --------------
+$prototype-box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.07);

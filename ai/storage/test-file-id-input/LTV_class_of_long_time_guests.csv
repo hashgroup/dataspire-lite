@@ -1,0 +1,6 @@
+GuestID,LTV_Class,CLV_Low_Prob,CLV_Mid_Prob,CLV_High_Prob
+87.0,CLV_Low_Prob,1,0,0
+104.0,CLV_Mid_Prob,0,1,0
+107.0,CLV_High_Prob,0,0,1
+112.0,CLV_Low_Prob,1,0,0
+114.0,CLV_Low_Prob,1,0,0

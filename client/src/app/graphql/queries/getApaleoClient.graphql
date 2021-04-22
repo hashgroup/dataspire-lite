@@ -1,0 +1,6 @@
+query GetApaleoClient {
+  response: getApaleoClient {
+    allowScopeList
+    clientId
+  }
+}

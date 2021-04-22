@@ -1,0 +1,24 @@
+.container {
+  height: 100%;
+  //height: calc(100% - 64px);
+  //@media (max-width: 599px) {
+  //  height: calc(100% - 56px);
+  //
+  //}
+
+  &.stepper {
+    ::ng-deep {
+      .mat-step-header {
+        pointer-events: none !important;
+      }
+
+      .mat-step-label {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.grid-container {
+  //height: calc(100vh - 4rem - 64px);
+}

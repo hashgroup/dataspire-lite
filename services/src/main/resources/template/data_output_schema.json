@@ -1,0 +1,19 @@
+{
+  "code": 200,
+  "status": "SUCCESS",
+  "message": "Successfully Run.",
+  "dataList": [
+    {
+      "LastName": "Doe",
+      "FirstName": "John",
+      "Email": null,
+      "GuestID": 0,
+      "LTV_Class": -1.0,
+      "CLV_Low_Prob": null,
+      "CLV_Mid_Prob": null,
+      "CLV_High_Prob": null,
+      "Guest_Type": "Ignore 1st-Time Guest"
+    }
+  ],
+  "errorlog": ""
+}

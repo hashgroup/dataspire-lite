@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  ai:
+    container_name: "dataspire-lite-ai"
+    build: ./ai
+    networks:
+      - dsrnetwork
+    ports:
+      - "5000:5000"
+  backend:
+    container_name: "dataspire-lite-services"
+    build: ./services
+    depends_on:
+      - ai
+    networks:
+      - dsrnetwork
+    ports:
+      - "8000:8000"
+
+  client:
+    container_name: dataspire-lite-ui
+    restart: always
+    build: ./client
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+
+networks:
+  dsrnetwork:

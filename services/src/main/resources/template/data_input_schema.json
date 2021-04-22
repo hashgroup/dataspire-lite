@@ -1,0 +1,20 @@
+[
+  {
+    "CreatedDate": "2016-01-01 07:47:00",
+    "Status": "O",
+    "RoomGroupID": "OQNN",
+    "ArrivalDate": "2016-01-01 00:00:00",
+    "DepartureDate": "2016-01-03 06:34:00",
+    "RoomPrice": 235.4,
+    "LastName": "Doe",
+    "FirstName": "John",
+    "Nights": 2,
+    "Channel": "Booking.Com",
+    "TotalPayment": 435.49,
+    "Country": "TH",
+    "Adults": 2,
+    "Children": 0,
+    "Email": null,
+    "RoomNo": 238.0
+  }
+]

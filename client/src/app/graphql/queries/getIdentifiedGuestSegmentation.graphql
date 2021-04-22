@@ -1,0 +1,6 @@
+query GetIdentifiedGuestSegmentation($filter: IdentifiedGuestSegmentationFilter) {
+  response: getIdentifiedGuestSegmentation(filter: $filter) {
+    segment
+    value
+  }
+}

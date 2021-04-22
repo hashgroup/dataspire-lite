@@ -1,0 +1,159 @@
+mutation exchangeToken
+{
+  exchangeToken(input:{
+    code:""
+    redirectUrl:"http://localhost:4200/callback"
+  }){
+    idToken
+    accessToken
+    expiresIn
+    tokenType
+    refreshToken
+  }
+}
+
+
+query getReservationList
+{
+  getReservationList(filter:{
+    hotelIdList:[]
+    refreshToken:""
+  }) {
+    count
+    data
+    {
+      id
+    bookingId
+    status
+    arrival
+    departure
+    created
+    adults
+    chilrenAgeList
+    channelCode
+    reservationTimeSliceList
+    {
+      from
+      to
+      roomPrice
+      {
+        grossAmount
+        netAmount
+        vatType
+        vatPercent
+        currency
+      }
+    }
+    room
+    {
+      id
+      roomNumber
+      description
+      roomGroupId
+    }
+    guest
+    {
+      firstName
+      lastName
+      email
+      address
+      {
+        countryCode
+      }
+    }
+    totalGrossAmount
+    {
+       	grossAmount
+        netAmount
+        vatType
+        vatPercent
+        currency
+    }
+    }
+
+  }
+}
+
+
+query getCustomerLifetimeValueList
+{
+  getCustomerLifetimeValueList(filter:{
+    processId:"123"    
+  }) {
+    email
+    low
+    mid
+    high
+    type
+  }
+}
+
+
+query getProcessState
+{
+  getProcessState(filter:{
+    processId:"123"
+  }) {
+    id
+   	status
+    message
+  }
+}
+
+mutation startProcess
+{
+  startProcess(input:{
+    processId:"123"
+    hotelId:"123"
+    refreshToken:"123"
+  }) {
+		id
+    status
+    message
+  }
+}
+
+query getApaleoClient
+{
+  getApaleoClient
+  {
+    allowScopeList
+    clientId
+  }
+}
+
+query getStatistic
+{
+  getStatistic(filter:{
+    processId:"1"
+  }){
+    totalIdentifiedGuest
+    totalPotentialVipGuest
+    highValueGuest
+  }
+}
+
+
+query getIdentifiedGuestSegmentation
+{
+  getIdentifiedGuestSegmentation(filter:{
+    processId:"1"
+  }){
+    segment
+    value
+  }
+}
+
+query getClvTypeList
+{
+  getClvTypeList(filter:{
+    processId:"1"
+  }){
+    name
+    classList
+    {
+      name
+      value
+    }
+  }
+}

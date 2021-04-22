@@ -1,0 +1,14 @@
+directive @deprecated(
+  reason: String = "Next version will remove"
+) on FIELD_DEFINITION | INPUT_OBJECT | INPUT_FIELD_DEFINITION | ENUM_VALUE | ARGUMENT_DEFINITION
+
+schema {
+    query: Query
+    mutation : Mutation
+}
+type Query{
+    test        : String
+}
+
+type Mutation {
+}

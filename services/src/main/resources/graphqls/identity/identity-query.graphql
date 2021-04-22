@@ -1,0 +1,11 @@
+extend type Query
+{
+    getApaleoClient                                         : ApaleoClient
+}
+
+
+extend type Mutation
+{
+    exchangeToken(input: TokenRequest)                      : TokenResponse
+    renewToken(input: TokenRequest)                         : TokenResponse
+}

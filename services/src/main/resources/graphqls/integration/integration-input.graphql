@@ -1,0 +1,21 @@
+input ProcessStatusFilter
+{
+    processId               : String!
+}
+
+input CustomerLifetimeValueFilter
+{
+    processId               : String!
+}
+
+input ProcessInput
+{
+    processId               : String
+    hotelIdList             : [String]!
+    refreshToken            : String!
+}
+
+input ProcessDetailsFilter
+{
+    processId               : String!
+}

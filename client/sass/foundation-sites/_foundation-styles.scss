@@ -1,0 +1,22 @@
+@import "settings";
+@import "~foundation-sites/scss/foundation";
+
+// Global styles
+@include foundation-global-styles;
+@include foundation-forms;
+@include foundation-typography;
+
+// Grids
+@include foundation-xy-grid-classes;
+
+// Helpers
+@include foundation-flex-classes;
+@include foundation-visibility-classes;
+@include foundation-prototype-rounded;
+@include foundation-prototype-bordered;
+@include foundation-prototype-shadow;
+@include foundation-prototype-sizing;
+@include foundation-prototype-font-styling;
+@include foundation-prototype-spacing;
+@include foundation-button;
+
