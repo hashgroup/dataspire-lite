@@ -1,15 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {OAuthService} from 'angular-oauth2-oidc';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-callback',
   template: `
-    <p>
-      callback works!
-    </p>
-    <button mat-button (click)="getToken()">GetToken</button>
+    <p>Loading...</p>
     <a routerLink="/">home</a>
   `,
   styleUrls: ['./callback.component.scss'],
@@ -21,6 +18,7 @@ export class CallbackComponent implements OnInit {
   constructor(
     private oauthService: OAuthService,
     private route: ActivatedRoute,
+    private router: Router,
     private cookieService: CookieService,
   ) {
   }
@@ -31,6 +29,9 @@ export class CallbackComponent implements OnInit {
     this.cookieService.set('auth_code', code);
     this.cookieService.set('auth_state', state);
     window.close();
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 1000);
   }
 
 

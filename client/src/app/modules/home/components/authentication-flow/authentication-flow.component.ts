@@ -109,6 +109,10 @@ export class AuthenticationFlowComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const code = this.cookieService.get('auth_code');
+    if (code?.length) {
+      this.getProperties(code);
+    }
   }
 
   login(): void {
@@ -119,26 +123,32 @@ export class AuthenticationFlowComponent implements OnInit {
       .catch()
       .finally(() => {
         const code = this.cookieService.get('auth_code');
-        this.authService.exchangeToken({input: {code, redirectUrl: environment.authSetting.redirectUrl}})
-          .pipe(
-            tap(({accessToken, expiresIn, idToken, refreshToken, tokenType}: TokenResponse) => {
-              this.tokenService.setToken({
-                access_token: accessToken,
-                refresh_token: refreshToken,
-                scope: this.scope,
-                token_type: tokenType,
-                expires_in: expiresIn,
-                id_token: idToken
-              });
-              this.cookieService.delete('auth_code');
-            }),
-            switchMap(() => this.inventoryService.inventories())
-          ).subscribe(res => {
-          this.properties = res;
-          this.hotelId.setValue(res.map(x => x.id));
-          this.loadingService.setLoading(false);
-        });
+        this.getProperties(code);
       });
+  }
+
+  private getProperties(code): void {
+    this.loadingService.setLoading(true);
+
+    this.authService.exchangeToken({input: {code, redirectUrl: environment.authSetting.redirectUrl}})
+      .pipe(
+        tap(({accessToken, expiresIn, idToken, refreshToken, tokenType}: TokenResponse) => {
+          this.tokenService.setToken({
+            access_token: accessToken,
+            refresh_token: refreshToken,
+            scope: this.scope,
+            token_type: tokenType,
+            expires_in: expiresIn,
+            id_token: idToken
+          });
+          this.cookieService.delete('auth_code');
+        }),
+        switchMap(() => this.inventoryService.inventories())
+      ).subscribe(res => {
+      this.properties = res;
+      this.hotelId.setValue(res.map(x => x.id));
+      this.loadingService.setLoading(false);
+    });
   }
 
   startProcess(): void {

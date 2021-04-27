@@ -9,7 +9,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [CallbackComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
