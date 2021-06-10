@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.devrupt</groupId>
     <artifactId>services</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>services</name>
     <description>Hcg Devrupt</description>
     <properties>
