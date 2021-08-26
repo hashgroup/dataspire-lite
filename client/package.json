@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "gene-graphql": "gql-gen --config ./src/app/graphql/config/codegen.yml",
-    "start": "ng serve",
+    "start": "ng serve --port 4200",
     "build": "ng build",
     "build-prod": "ng build --configuration production",
     "test": "ng test",

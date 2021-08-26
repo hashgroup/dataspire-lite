@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  ai:
+    container_name: "dataspire-lite-ai"
+    image: hcglab/dataspire-lite-ai
+    networks:
+      - dsrnetwork
+    ports:
+      - "5000:5000"
+  backend:
+    container_name: "dataspire-lite-services"
+    image: hcglab/dataspire-lite-service
+    depends_on:
+      - ai
+    networks:
+      - dsrnetwork
+    ports:
+      - "8000:8000"
+
+networks:
+  dsrnetwork:
