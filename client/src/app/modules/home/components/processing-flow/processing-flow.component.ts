@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ProcessApisService} from '../../../../apis/process.apis.service';
+import {ProcessApisService} from '../../../../apis/process/process.apis.service';
 import {ActivatedRoute} from '@angular/router';
 import {interval, Observable} from 'rxjs';
 import {Process, ProcessStatusEnum} from '../../../../graphql/generated/graphql';

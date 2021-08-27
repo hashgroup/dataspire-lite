@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL: `http://localhost:8000`,
+  apiURL: `https://lite-services.dataspire.io`,
   apaleoAPI: 'https://api.apaleo.com',
   authSetting: {
     scope: 'offline_access openid profile setup.manage',

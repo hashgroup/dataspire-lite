@@ -1,4 +1,3 @@
-
 query GetCustomerLifetimeValueList($filter: CustomerLifetimeValueFilter) {
   response: getCustomerLifetimeValueList(filter: $filter) {
     email

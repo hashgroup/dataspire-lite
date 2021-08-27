@@ -1,11 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {ProcessApisService} from '../../../apis/process.apis.service';
+import {ProcessApisService} from '../../../apis/process/process.apis.service';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Statistic} from '../../../graphql/generated/graphql';
-import {map, tap} from 'rxjs/operators';
-import {CookieService} from "ngx-cookie-service";
-import {TokenService} from "../../../services/token.service";
+import {map} from 'rxjs/operators';
+import {CookieService} from 'ngx-cookie-service';
+import {TokenService} from '../../../services/token.service';
+import {environment} from '../../../../environments/environment';
+import {ProcessApisMockService} from '../../../apis/process/process.apis.mock.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,7 +44,13 @@ import {TokenService} from "../../../services/token.service";
     </div>
   `,
   styleUrls: ['./dashboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: ProcessApisService,
+      useClass: environment.production ? ProcessApisService : ProcessApisMockService,
+    },
+  ]
 })
 export class DashboardComponent implements OnInit {
 
@@ -64,7 +72,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const processId = this.route.snapshot.queryParams?.id;
-
     this.count$ = this.processApiService.getTotalRecordCount({filter: {processId}});
     this.statistic$ = this.processApiService.getStatistic({filter: {processId}});
     this.segmentationData$ = this.processApiService.getIdentifiedGuestSegmentation({filter: {processId}})
@@ -76,7 +83,6 @@ export class DashboardComponent implements OnInit {
           first: i?.typeList?.find(e => e?.name === '1st-Time Guest')?.value,
           second: i?.typeList?.find(e => e?.name === 'Returning Guest')?.value,
         }))),
-        tap(console.log)
       );
 
 
