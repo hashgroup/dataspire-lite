@@ -22,7 +22,10 @@ export const QueryGetClvClassListDocs = gql`
 export const QueryGetCustomerLifetimeValueListDocs = gql`
     query GetCustomerLifetimeValueList($filter: CustomerLifetimeValueFilter) {
   response: getCustomerLifetimeValueList(filter: $filter) {
+    firstName
+    lastName
     email
+    ltvClass
     low
     mid
     high

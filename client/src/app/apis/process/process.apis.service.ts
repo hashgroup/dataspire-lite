@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
-import {ExecuteGraphqlService} from '../services/execute-graphql.service';
+import {ExecuteGraphqlService} from '../../services/execute-graphql.service';
 import {Observable} from 'rxjs';
-import {MutationStartProcessDocs} from '../graphql/generated/mutations';
+import {MutationStartProcessDocs} from '../../graphql/generated/mutations';
 import {
   ClvClass,
   CustomerLifetimeValue,
@@ -15,7 +15,7 @@ import {
   QueryGetStatisticArgs,
   QueryGetTotalRecordCountArgs,
   Statistic
-} from '../graphql/generated/graphql';
+} from '../../graphql/generated/graphql';
 import {
   QueryGetClvClassListDocs,
   QueryGetCustomerLifetimeValueListDocs,
@@ -23,13 +23,14 @@ import {
   QueryGetProcessStateDocs,
   QueryGetStatisticDocs,
   QueryGetTotalRecordCountDocs
-} from '../graphql/generated/queries';
+} from '../../graphql/generated/queries';
+import {ProcessApis} from './process-api';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProcessApisService {
+export class ProcessApisService implements ProcessApis {
 
   constructor(private execute: ExecuteGraphqlService) {
   }

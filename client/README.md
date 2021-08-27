@@ -1,4 +1,4 @@
-# Dataspire lite client
+# Dataspire Lite client
 
 ### Prerequisites
 > Docker active LTS

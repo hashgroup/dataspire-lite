@@ -8,7 +8,7 @@ import {environment} from '../../../../../environments/environment';
 import {switchMap, tap} from 'rxjs/operators';
 import {Process, TokenResponse} from '../../../../graphql/generated/graphql';
 import {FormControl} from '@angular/forms';
-import {ProcessApisService} from '../../../../apis/process.apis.service';
+import {ProcessApisService} from '../../../../apis/process/process.apis.service';
 import {LoadingService} from '../../../../services/loading.service';
 import {ActivatedRoute} from '@angular/router';
 import {noop, Observable} from 'rxjs';
