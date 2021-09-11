@@ -1,4 +1,13 @@
+$hover-icon-color: #767676;
+
 .grid-container {
+  .search-form-container {
+    ::ng-deep .mat-form-field-suffix:hover {
+      cursor: pointer;
+      border-radius: 0.25rem;
+      background-color: $hover-icon-color;
+    }
+  }
 }
 
 .dashboard-card {
