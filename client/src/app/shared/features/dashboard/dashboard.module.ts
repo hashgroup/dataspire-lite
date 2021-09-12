@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {DashboardComponent} from "./dashboard.component";
 import {StatisticComponent} from "./statistic/statistic.component";
 import {ChartModule} from "../chart/chart.module";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +21,7 @@ import { TableModule } from '../table/table.module';
     CommonModule,
     ChartModule,
     FormsModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,

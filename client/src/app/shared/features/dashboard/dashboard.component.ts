@@ -53,7 +53,12 @@ import { GuestInfo, GuestType, GUEST_COLUMNS } from './dashboard.definition';
         <form class="search-form-container" [formGroup]="formSearch">
           <mat-form-field appearance="fill" class="margin-right-1">
             <mat-label>Search by name</mat-label>
-            <input matInput placeholder="Search by name" formControlName="name">
+            <input matInput placeholder="Search by name" formControlName="name" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of guestInfoData$ | async" [value]="option.fullName">
+                {{option.fullName}}
+              </mat-option>
+            </mat-autocomplete>
             <mat-icon matPrefix aria-hidden="false" aria-label="Search">search</mat-icon>
             <mat-icon matSuffix aria-hidden="false" aria-label="Clear" (click)="clearFilter($event, 'name')">clear</mat-icon>
           </mat-form-field>
