@@ -3,12 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  EventEmitter,
   Inject,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   PLATFORM_ID,
   SimpleChanges,
   ViewChild
@@ -36,9 +38,16 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
     second: number;
   }>;
 
+  @Output() clicked: EventEmitter<{type: string, value: string}> = new EventEmitter<{type: string, value: string}>();
+
   private chart: am4charts.XYChart;
 
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone) {
+  }
+
+  private onClickChart(name: string, $event): void {
+    console.log($event);
+    this.clicked.emit({type: $event.type, value: name});
   }
 
   // Run the function only in the browser
@@ -84,14 +93,14 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
       const yAxis = chart.yAxes.push(new am4charts.ValueAxis());
       yAxis.min = 0;
 
+      const $this = this;
       function createSeries(value, name): am4charts.ColumnSeries {
         const series = chart.series.push(new am4charts.ColumnSeries());
         series.dataFields.valueY = value;
         series.dataFields.categoryX = 'category';
         series.name = name;
-
-        // series.events.on('hidden', arrangeColumns);
-        // series.events.on('shown', arrangeColumns);
+        series.events.on('hidden', $this.onClickChart.bind($this, name), $this);
+        series.events.on('shown', $this.onClickChart.bind($this, name), $this);
 
         const bullet = series.bullets.push(new am4charts.LabelBullet());
         bullet.interactionsEnabled = false;
