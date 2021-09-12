@@ -1,5 +1,5 @@
 import {ActivatedRoute} from '@angular/router';
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import {CookieService} from 'ngx-cookie-service';
@@ -12,7 +12,7 @@ import {ProcessApisService} from '../../../apis/process/process.apis.service';
 import {Statistic} from '../../../graphql/generated/graphql';
 import {TokenService} from '../../../services/token.service';
 
-import { GuestInfo, GuestType, GUEST_COLUMNS } from './dashboard.definition';
+import { ChartType, GuestInfo, GuestType, GUEST_COLUMNS } from './dashboard.definition';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +29,9 @@ import { GuestInfo, GuestType, GUEST_COLUMNS } from './dashboard.definition';
         <div class="cell medium-5">
           <ng-container *ngIf="(segmentationData$ | async) as data">
             <app-pie
-              [data]="data">
+              [data]="data"
+              (clicked)="onFilterDataFromChart($event, chartType.SegmentChart)"
+              >
             </app-pie>
           </ng-container>
 
@@ -37,7 +39,8 @@ import { GuestInfo, GuestType, GUEST_COLUMNS } from './dashboard.definition';
         <div class="cell medium-7">
           <ng-container *ngIf="(clv$ | async) as data">
             <app-column
-              [data]="data">
+              [data]="data"
+              (clicked)="onFilterDataFromChart($event, chartType.BarChart)">
             </app-column>
           </ng-container>
 
@@ -65,7 +68,7 @@ import { GuestInfo, GuestType, GUEST_COLUMNS } from './dashboard.definition';
 
           <mat-form-field appearance="fill">
             <mat-label>Search by type</mat-label>
-            <mat-select formControlName="type" [disableOptionCentering]="true">
+            <mat-select formControlName="type" [disableOptionCentering]="true" (selectionChange)="filterDataByType($event)">
               <mat-option *ngFor="let type of guestTypes" value="{{type}}">{{type}}</mat-option>
             </mat-select>
             <mat-icon matSuffix aria-hidden="false" aria-label="Clear" (click)="clearFilter($event, 'type')">clear</mat-icon>
@@ -104,8 +107,11 @@ export class DashboardComponent implements OnInit {
   guestColumns = GUEST_COLUMNS;
   formSearch: FormGroup;
   guestTypes = Object.values(GuestType);
+  isShow = true;
+  chartType = ChartType;
 
   constructor(
+    private cdRef: ChangeDetectorRef,
     private processApiService: ProcessApisService,
     private cookieService: CookieService,
     private tokenService: TokenService,
@@ -114,41 +120,33 @@ export class DashboardComponent implements OnInit {
     ) {
   }
 
-  private updateData(): void {
-    const processId = this.route.snapshot.queryParams?.id;
+  private getFormValue(fieldName: string): string {
+    if (this.formSearch) {
+      return this.formSearch.get(fieldName).value;
+    }
+    return null;
+  }
 
+  private setFormValue(fieldName: string, value: string): void {
+    if (this.formSearch) {
+      this.formSearch.get(fieldName).setValue(value, {emitEvent: true});
+    }
+  }
+
+  private updateDataTable(): void {
     // Allows approximate search customer by name (on table)
-    const guestName = this.formSearch.get('name').value;
-
+    const guestName = this.getFormValue('name');
     // Filter data shall reflect on the 2 charts above.
     // Type of filter: Returing guest / 1st - Time guest.
-    const guestType = this.formSearch.get('type').value;
-
-    // get segment data (left chart)
-    this.segmentationData$ = this.processApiService.getIdentifiedGuestSegmentation({ filter: { processId } })
-      .pipe(map(function(resp) {
-        let updatedResp = resp?.map(function (i) {
-          return { name: i?.segment, value: i?.value };
-        });
-        if (guestType && updatedResp.length) {
-          updatedResp = updatedResp.filter(function(seg) {
-            return (guestType === seg.name);
-          });
-        }
-        return updatedResp;
-      }));
-
-    // get bar chart data (right chart)
-    this.clv$ = this.processApiService.getClvClassList({ filter: { processId } })
-      .pipe(map(x => x?.map(i => ({
-        category: i?.name,
-        first: !guestType || guestType === GuestType.firstTime ? i?.typeList?.find(e => e?.name === GuestType.firstTime)?.value : 0,
-        second: !guestType || guestType === GuestType.returning ? i?.typeList?.find(e => e?.name === GuestType.returning)?.value : 0,
-      }))));
+    const guestType = this.getFormValue('type');
 
     // get row data table
-    this.guestInfoData$ = this.processApiService.getCustomerLifetimeValueList({ filter: { processId } })
+    const $this = this;
+    this.guestInfoData$ = this.processApiService.getCustomerLifetimeValueList({ filter: { processId: this.route.snapshot.queryParams?.id } })
       .pipe(map(function(resp) {
+        if (!$this.isShow) {
+          return [];
+        }
         let updatedResp = resp?.map(function(i) {
           return new GuestInfo(i);
         });
@@ -168,6 +166,33 @@ export class DashboardComponent implements OnInit {
       }));
   }
 
+  private updateSegmentChart(): void {
+    const processId = this.route.snapshot.queryParams?.id;
+
+    // Filter data shall reflect on the 2 charts above.
+    // Type of filter: Returing guest / 1st - Time guest.
+    const guestType = this.getFormValue('type');
+
+    // get segment data (left chart)
+    this.segmentationData$ = this.processApiService.getIdentifiedGuestSegmentation({ filter: { processId } })
+      .pipe(map(resp => resp?.map(i => ({ name: i?.segment, value: ((this.isShow && !guestType) || guestType === i.segment) ? i?.value : 0}))));
+  }
+
+  private updateBarChart(): void {
+    const processId = this.route.snapshot.queryParams?.id;
+    // Filter data shall reflect on the 2 charts above.
+    // Type of filter: Returing guest / 1st - Time guest.
+    const guestType = this.getFormValue('type');
+
+    // get bar chart data (right chart)
+    this.clv$ = this.processApiService.getClvClassList({ filter: { processId } })
+      .pipe(map(x => x?.map(i => ({
+        category: i?.name,
+        first: (this.isShow && !guestType) || guestType === GuestType.firstTime ? i?.typeList?.find(e => e?.name === GuestType.firstTime)?.value : 0,
+        second: (this.isShow && !guestType) || guestType === GuestType.returning ? i?.typeList?.find(e => e?.name === GuestType.returning)?.value : 0,
+      }))));
+  }
+
   ngOnInit(): void {
     // Init form search
     this.formSearch = this.fb.group({
@@ -175,16 +200,17 @@ export class DashboardComponent implements OnInit {
       type: new FormControl(''),
     });
 
+    this.formSearch.get('name').valueChanges.subscribe(value => {
+      this.updateDataTable();
+    });
+
     const processId = this.route.snapshot.queryParams?.id;
     this.count$ = this.processApiService.getTotalRecordCount({filter: {processId}});
     this.statistic$ = this.processApiService.getStatistic({filter: {processId}});
     // update data to display from rawData
-    this.updateData();
-
-
-    // Filter data since formSearch has changed (user inputted to search)
-    this.formSearch.valueChanges.subscribe(this.updateData.bind(this));
-
+    this.updateSegmentChart();
+    this.updateBarChart();
+    this.updateDataTable();
   }
 
   /**
@@ -193,7 +219,47 @@ export class DashboardComponent implements OnInit {
    * @param controlName is field's formControlName
    */
   clearFilter($event: MouseEvent, controlName: string): void {
+    this.isShow = true;
+    this.setFormValue(controlName, '');
+    this.updateSegmentChart();
+    this.updateBarChart();
+    this.updateDataTable();
     $event.stopPropagation();
-    this.formSearch.get(controlName).setValue('');
+  }
+
+  onFilterDataFromChart(event: {type: string; value: string}, chart: ChartType): void {
+    const currentType = this.getFormValue('type');
+    if (event.type === 'hit') {
+      this.setFormValue('type', event.value);
+    } else if (event.type === 'hidden') {
+      this.isShow = false;
+      if (currentType === event.value) {
+        this.setFormValue('type', '');
+      } else {
+        const filterType = event.value === GuestType.firstTime ? GuestType.returning : GuestType.firstTime;
+        this.setFormValue('type', filterType);
+      }
+    } else if (event.type === 'shown') {
+      this.isShow = true;
+      if (currentType && currentType !== event.value) {
+        this.setFormValue('type', '');
+      } else {
+        this.setFormValue('type', event.value);
+      }
+    }
+    this.updateDataTable();
+    if (chart === ChartType.SegmentChart) {
+      this.updateBarChart();
+    } else {
+      this.updateSegmentChart();
+    }
+    this.cdRef.detectChanges();
+  }
+
+  filterDataByType(event: string): void {
+    this.isShow = true;
+    this.updateSegmentChart();
+    this.updateBarChart();
+    this.updateDataTable();
   }
 }

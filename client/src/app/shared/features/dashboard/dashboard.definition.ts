@@ -18,6 +18,11 @@ export enum GuestType {
   returning = 'Returning Guest'
 }
 
+export enum ChartType {
+  SegmentChart = 1,
+  BarChart = 2,
+}
+
 export class GuestInfo {
   fullName: string;
   email: string;
