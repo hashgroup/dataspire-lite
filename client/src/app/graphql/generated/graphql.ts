@@ -206,6 +206,7 @@ export interface CustomerLifetimeValue {
   mid?: Maybe<Scalars['Float']>;
   high?: Maybe<Scalars['Float']>;
   type?: Maybe<Scalars['String']>;
+  fullName?: Maybe<Scalars['String']>;
 }
 
 export interface TokenResponse {
