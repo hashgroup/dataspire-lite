@@ -5,6 +5,7 @@ import {StatisticComponent} from "./statistic/statistic.component";
 import {ChartModule} from "../chart/chart.module";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterModule} from "@angular/router";
+import { GuestListModule } from '../guest-list/guest-list.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {RouterModule} from "@angular/router";
     CommonModule,
     ChartModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    GuestListModule
   ],
   exports: [DashboardComponent,
     StatisticComponent
