@@ -1,0 +1,161 @@
+// @import "./variables";
+
+// .table-header {
+//   display: flex;
+//   justify-content: flex-end;
+//   align-items: center;
+//   background-color: inherit;
+//   margin-bottom: 10px;
+
+//   .left,
+//   .right {
+//     height: fit-content;
+//     list-style: none;
+//     display: flex;
+//     margin: 0;
+//     padding: 0;
+//     align-items: center;
+//     width: 100%;
+//   }
+
+//   .left {
+//     justify-content: flex-start;
+//     span {
+//       font-size: 13px;
+//     }
+//   }
+
+//   .right {
+//     justify-content: flex-end;
+//   }
+// }
+
+// .filter-area {
+//   grid-gap: 10px;
+//   height: fit-content;
+//   background-color: $default-white;
+//   border: 1px solid $default-gray;
+//   border-top: none;
+//   box-shadow: $box-shadow;
+//   padding: 20px;
+
+//   &.close {
+//     padding: 0;
+//   }
+
+//   .button-group {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+
+//     button {
+//       margin-right: 10px;
+//     }
+//   }
+// }
+
+// nz-table {
+//   table {
+//     border-collapse: collapse !important;
+//     table-layout: auto !important;
+//     .pos-num {
+//       text-align: center !important;
+//     }
+//     thead {
+//       .ant-table-column-sorters {
+//         padding: 0 !important;
+//       }
+//       tr {
+//         th {
+//           font-size: 13px !important;
+//           font-weight: 500 !important;
+//           color: $color-table-header !important;
+//           background-color: $white-bg !important;
+//           border-color: $border-table !important;
+//           border-bottom: none !important;
+//           white-space: nowrap;
+//           padding: 12px 10px !important;
+//           text-align: left !important;
+//           &:last-child {
+//             background-color: $white-bg !important;
+//           }
+//         }
+//       }
+//     }
+//     tbody {
+//       tr {
+//         // td {
+//         //   border-color: $border-table !important;
+//         //   color: $high-black;
+//         //   font-size: $font-size-mini;
+//         //   border-top: none;
+//         //   border-bottom: none !important;
+//         //   padding: 7px 10px !important;
+//         //   p {
+//         //     margin-bottom: 2px;
+//         //   }
+//         //   .ico-action-tbl {
+//         //   }
+//         // }
+//         &:first-child td {
+//           border-top: 2px solid $high-black !important;
+//         }
+//         &:last-child td {
+//           border-bottom: 2px solid $high-black !important;
+//         }
+//         &:nth-child(odd) {
+//           background: $white-bg;
+//         }
+//         &:nth-child(even) {
+//           background: $smoke-bg;
+//         }
+//         &.gray-bg {
+//           color: $medium-black;
+//           background-color: $medium-gray;
+
+//           td {
+//             background-color: $medium-gray;
+//           }
+
+//           &:hover {
+//             color: $medium-black !important;
+//             background-color: $medium-gray !important;
+
+//             td {
+//               background-color: $medium-gray !important;
+//             }
+//           }
+//         }
+//         &.red-bg {
+//           color: $default-white !important;
+//           background-color: $medium-red !important;
+
+//           td {
+//             background-color: $medium-red !important;
+//           }
+
+//           &:hover {
+//             color: $medium-red !important;
+//             background-color: $default-white !important;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+// .ant-table-column-sorter-down.active,
+// .ant-table-column-sorter-up.active {
+//   color: $default-blue;
+// }
+// .box-tbl {
+//   margin: 0 -15px;
+//   border: 1px solid $border-table;
+// }
+// .ant-table-content {
+//   overflow: auto;
+// }
+// /*.action-tbl {
+//   text-align: left !important;
+//   justify-content: left !important;
+// }
+// */

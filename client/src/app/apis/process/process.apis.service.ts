@@ -62,7 +62,8 @@ export class ProcessApisService implements ProcessApis {
     return this.execute.runQuery({
       query: QueryGetCustomerLifetimeValueListDocs,
       variables
-    }).pipe(map(({response}) => response));
+    }).pipe(map(({response}) =>
+    response));
   }
 
   getClvClassList(variables: QueryGetClvClassListArgs): Observable<Array<ClvClass>> {
