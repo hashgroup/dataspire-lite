@@ -1,0 +1,79 @@
+.app-guest
+{
+  display: flex;
+  justify-content: center;
+}
+
+.search-box {
+  padding: 8px;
+  input{
+    width: 188px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  button {
+    width: 90px;
+  }
+}
+.search-button {
+  margin-right: 8px;
+}
+.pagging {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  justify-content: flex-end;
+  margin: 0;
+  li {
+    display: inline-block;
+    list-style: none;
+    cursor: pointer;
+  }
+}
+nz-table {
+  border: solid 1px #808080;
+  background-color: #263038;
+  ::ng-deep{
+    .ant-table-content {
+      overflow: hidden!important;
+    }
+    table {
+      background-color: #263038;
+
+
+    }
+
+    thead
+    {
+      background-color: #354552;
+      tr
+      {
+        th{
+          background-color: #334756;
+          border-right: solid 0.5px #808080;
+          border-bottom:solid 0.5px #808080;;
+        }
+      }
+    }
+    tbody{
+      max-height: 500px!important;
+    overflow: hidden;
+
+      tr
+      {
+        td{
+          background-color: #263038;
+          border-right: solid 0.5px #808080;
+          border-bottom:solid 0.5px #808080;;
+
+        }
+      }
+  }
+
+  }
+
+
+
+}
+

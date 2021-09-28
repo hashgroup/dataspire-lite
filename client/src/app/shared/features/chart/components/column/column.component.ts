@@ -3,17 +3,19 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  EventEmitter,
   Inject,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   PLATFORM_ID,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
@@ -21,7 +23,9 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 @Component({
   selector: 'app-column',
   template: `
+    <div>
     <div #chartEle [style.height.px]="height"></div>
+    </div>
   `,
   styleUrls: ['./column.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -35,10 +39,12 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
     first: number;
     second: number;
   }>;
+  @Output() emitSeriesChange: EventEmitter<any> = new EventEmitter<any>();
 
   private chart: am4charts.XYChart;
 
-  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone) {
+  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,
+  ) {
   }
 
   // Run the function only in the browser
@@ -54,7 +60,7 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   }
 
 
-  ngOnChanges({data}: SimpleChanges): void {
+  ngOnChanges({ data }: SimpleChanges): void {
     this.browserOnly(() => {
       if (this.chart && data.currentValue) {
         this.chart.data = data.currentValue;
@@ -84,15 +90,26 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
       const yAxis = chart.yAxes.push(new am4charts.ValueAxis());
       yAxis.min = 0;
 
-      function createSeries(value, name): am4charts.ColumnSeries {
+      const createSeries = (value, name): am4charts.ColumnSeries => {
         const series = chart.series.push(new am4charts.ColumnSeries());
         series.dataFields.valueY = value;
         series.dataFields.categoryX = 'category';
         series.name = name;
+        //Catching when series Change
+        series.events.on('visibilitychanged', (ev) => {
+          const values = this.chart.series.values;
+          const result = []
+          values.forEach(el => {
+            result.push({
+              name: el.name,
+              visible: el.visible
+            })
+          })
+          this.emitSeriesChange.emit(result)
 
+        });
         // series.events.on('hidden', arrangeColumns);
         // series.events.on('shown', arrangeColumns);
-
         const bullet = series.bullets.push(new am4charts.LabelBullet());
         bullet.interactionsEnabled = false;
         bullet.dy = 30;
@@ -104,11 +121,8 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
 
       createSeries('first', '1st-Time Guest');
       createSeries('second', 'Returning Guest');
-
       function arrangeColumns(): void {
-
         const series = chart.series.getIndex(0);
-
         const w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
         if (series.dataItems.length > 1) {
           const x0 = xAxis.getX(series.dataItems.getIndex(0), 'categoryX');
@@ -135,7 +149,7 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
 
               const dx = (newIndex - trueIndex + middle - newMiddle) * delta;
 
-              series.animate({property: 'dx', to: dx}, series.interpolationDuration, series.interpolationEasing);
+              series.animate({ property: 'dx', to: dx }, series.interpolationDuration, series.interpolationEasing);
               series.bulletsContainer.animate({
                 property: 'dx',
                 to: dx
@@ -145,7 +159,7 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
         }
       }
 
-// Cursor
+      // Cursor
       chart.cursor = new am4charts.XYCursor();
       chart.cursor.behavior = 'panX';
       chart.data = this.data;
