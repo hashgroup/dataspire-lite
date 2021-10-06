@@ -30,6 +30,7 @@
     "classlist.js": "^1.1.20150312",
     "foundation-sites": "^6.6.3",
     "fuse.js": "^6.4.6",
+    "fuzzy-search": "^3.2.1",
     "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
     "html2canvas": "1.0.0-rc.7",

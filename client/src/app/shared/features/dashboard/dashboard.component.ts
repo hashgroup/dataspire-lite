@@ -38,6 +38,7 @@ import {ProcessApisMockService} from '../../../apis/process/process.apis.mock.se
 
         </div>
       </div>
+      <app-guest-list></app-guest-list>
       <div class="flex-container align-justify margin-top-2">
         <ng-content></ng-content>
       </div>
