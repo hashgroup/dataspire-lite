@@ -5,6 +5,8 @@ import {StatisticComponent} from "./statistic/statistic.component";
 import {ChartModule} from "../chart/chart.module";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterModule} from "@angular/router";
+import { PredictionResultModule } from '../prediction-result/prediction-result.module';
+
 
 
 @NgModule({
@@ -15,7 +17,8 @@ import {RouterModule} from "@angular/router";
     CommonModule,
     ChartModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    PredictionResultModule
   ],
   exports: [DashboardComponent,
     StatisticComponent

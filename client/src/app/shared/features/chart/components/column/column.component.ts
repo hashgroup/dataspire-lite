@@ -17,6 +17,8 @@ import {isPlatformBrowser} from '@angular/common';
 
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import { __values } from 'tslib';
+import { GuestService } from 'src/app/services/guest.service';
 
 @Component({
   selector: 'app-column',
@@ -38,7 +40,9 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
 
   private chart: am4charts.XYChart;
 
-  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone) {
+  constructor(@Inject(PLATFORM_ID) private platformId,
+  private zone: NgZone,
+  private guestService: GuestService) {
   }
 
   // Run the function only in the browser
@@ -150,8 +154,29 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnChanges, OnDest
       chart.cursor.behavior = 'panX';
       chart.data = this.data;
       this.chart = chart;
+      const guestService = this.guestService;
 
+      chart.legend.itemContainers.template.events.on("hit", function(ev) {
+        let name = ev.target.dataItem.dataContext['_legendDataItem']['name'];
+        const active = ev.target['_isActive'];
+        let itemsActive = [];
+        chart.legend?.labels?.values?.forEach(item => {
+          if((name != item?.currentText && !item?.isActive) || (name == item?.currentText && active)) {
+            itemsActive = [...itemsActive, ...[item.currentText]];
+          }
+        });
+        guestService.setChartItemSelected(itemsActive);
+      });
     });
+  }
+
+  setSerieActive(series: any[], name: string) {
+    series.forEach(item => {
+      console.log(item.name == name);
+      if(item.name == name) item.isActive = false;
+      console.log(item.name);
+    });
+    console.log(series);
   }
 
 
