@@ -11,12 +11,13 @@ import graphql.schema.DataFetcher;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Component
 public class CustomInstrumentation extends SimpleInstrumentation
 {
-    private static final Logger LOGGER = Logger.getLogger(CustomInstrumentation.class);
+    private static final Logger LOGGER = LogManager.getLogger(CustomInstrumentation.class);
 
     @Override
     public InstrumentationState createState() {

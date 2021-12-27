@@ -19,7 +19,7 @@
         <graphql-spring-boot-starter.version>5.0.2</graphql-spring-boot-starter.version>
         <graphql-java.version>11.0</graphql-java.version>
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
-        <log4j.version>1.2.17</log4j.version>
+        <log4j.version>2.17.0</log4j.version>
         <commons-io.version>2.8.0</commons-io.version>
         <poi.version>3.17</poi.version>
         <poi-ooxml.version>3.17</poi-ooxml.version>
@@ -52,11 +52,21 @@
             <version>${apache-httpcomponents.version}</version>
         </dependency>
 
+        <!-- Framework : Logger - Log4j -->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.graphql-java</groupId>
